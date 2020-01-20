@@ -23,7 +23,10 @@ public class MessageDeserializer extends StdDeserializer<Message> {
   public Message deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
     try {
       JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-      String type = node.get("type").asText();
+      String type = node.has("type") ? node.get("type").asText() : null;
+      if (type == null || type.equals("")) {
+        throw new IOException("unknown_type");
+      }
       ObjectMapper mapper = new ObjectMapper();
       String className = "pro.ambulando.slack.notifier.model."+type;
       MessageBody body = (MessageBody) mapper.treeToValue(node.get("message"), Class.forName(className));

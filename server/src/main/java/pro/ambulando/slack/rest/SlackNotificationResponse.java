@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 public class SlackNotificationResponse<T> {
 

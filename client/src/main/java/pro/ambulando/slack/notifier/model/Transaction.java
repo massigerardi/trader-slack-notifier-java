@@ -14,8 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
 @ToString(of = "command")
 public class Transaction implements MessageBody {
