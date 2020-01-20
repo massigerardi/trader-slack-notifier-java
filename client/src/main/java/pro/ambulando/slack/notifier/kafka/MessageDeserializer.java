@@ -22,7 +22,6 @@ public class MessageDeserializer<T extends MessageBody> implements Deserializer<
     this.mapper.configure(JsonParser.Feature.IGNORE_UNDEFINED, true);
   }
 
-
   public Message<T> deserialize(String s, byte[] data) {
     try {
       return mapper.readValue(data, Message.class);

@@ -1,19 +1,14 @@
-package pro.ambulando.slack.stream;
+package pro.ambulando.slack.streams;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import pro.ambulando.slack.KafkaTopic;
-import pro.ambulando.slack.notifier.model.Execution;
 import pro.ambulando.slack.notifier.model.Message;
-import pro.ambulando.slack.notifier.model.Text;
-import pro.ambulando.slack.notifier.model.Transaction;
 import pro.ambulando.slack.services.MessageSender;
 
 import java.util.Collections;
 import java.util.Properties;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class KafkaConsumerTaskFactory {
 

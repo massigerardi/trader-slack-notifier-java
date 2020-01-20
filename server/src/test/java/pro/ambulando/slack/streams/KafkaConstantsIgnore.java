@@ -1,6 +1,6 @@
-package pro.ambulando.slack.stream;
+package pro.ambulando.slack.streams;
 
-public class KafkaConstants {
+public class KafkaConstantsIgnore {
 
   public static String KAFKA_BROKERS = "localhost:9092";
   public static Integer MESSAGE_COUNT = 2;

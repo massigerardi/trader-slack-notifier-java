@@ -1,4 +1,4 @@
-package pro.ambulando.slack.stream;
+package pro.ambulando.slack.streams;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;

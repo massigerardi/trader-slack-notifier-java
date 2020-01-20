@@ -1,4 +1,4 @@
-package pro.ambulando.slack.stream;
+package pro.ambulando.slack.streams;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
-public class ProducerRunner {
+public class ProducerRunnerIgnore {
 
   private static final String TOKEN = "xoxb-252026281427-kIAH1Smt12MOgZ1yjZwJqizt";
   private ProducerFactory factory = new ProducerFactory();
@@ -38,7 +38,7 @@ public class ProducerRunner {
 
   public MessageTextProducer createTextProducer() {
     Properties props = new Properties();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstantsIgnore.KAFKA_BROKERS);
     props.put(ProducerConfig.CLIENT_ID_CONFIG, "textProducer");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
@@ -47,7 +47,7 @@ public class ProducerRunner {
 
   public MessageTransactionProducer createTransactionProducer() {
     Properties props = new Properties();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstantsIgnore.KAFKA_BROKERS);
     props.put(ProducerConfig.CLIENT_ID_CONFIG, "transactionProducer");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
@@ -56,7 +56,7 @@ public class ProducerRunner {
 
   public MessageExecutionProducer createExecutionProducer() {
     Properties props = new Properties();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstantsIgnore.KAFKA_BROKERS);
     props.put(ProducerConfig.CLIENT_ID_CONFIG, "executionProducer");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
@@ -64,7 +64,7 @@ public class ProducerRunner {
   }
 
   private Runnable textRunner = () -> {
-    int count = KafkaConstants.MESSAGE_COUNT;
+    int count = KafkaConstantsIgnore.MESSAGE_COUNT;
     MessageTextProducer producer = createTextProducer();
     while(count > 0) {
       try {
@@ -89,7 +89,7 @@ public class ProducerRunner {
   }
 
   private Runnable executionRunner = () -> {
-    int count = KafkaConstants.MESSAGE_COUNT;
+    int count = KafkaConstantsIgnore.MESSAGE_COUNT;
     MessageExecutionProducer producer = createExecutionProducer();
     while(count > 0) {
       try {
@@ -112,7 +112,7 @@ public class ProducerRunner {
   }
 
   private Runnable transactionRunner = () -> {
-    int count = KafkaConstants.MESSAGE_COUNT;
+    int count = KafkaConstantsIgnore.MESSAGE_COUNT;
     MessageTransactionProducer producer = createTransactionProducer();
     while(count > 0) {
       try {
