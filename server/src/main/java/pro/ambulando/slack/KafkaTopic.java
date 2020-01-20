@@ -10,11 +10,7 @@ import java.util.stream.Collectors;
 @Setter
 public class KafkaTopic {
 
-  public enum Type {TEXT, EXECUTION, TRANSACTION}
-
   private String[] brokers;
-
-  private Type type;
 
   private String name;
 

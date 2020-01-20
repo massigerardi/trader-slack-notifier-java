@@ -9,27 +9,14 @@ server:
 spring:
   liquibase:
     enabled: false
+  jackson:
+    serialization-inclusion: non_null
 
 kafka:
   topics:
-    - name: "text_topic"
-      type: "TEXT"
+    - name: "messages"
       brokers:
         - "localhost:9092"
       group: "text_topic_group"
-      keyDeserializer: "org.apache.kafka.common.serialization.LongDeserializer"
-      valueDeserializer: "pro.ambulando.slack.notifier.kafka.MessageDeserializer"
-    - name: "execution_topic"
-      type: "EXECUTION"
-      brokers:
-        - "localhost:9092"
-      group: "execution_topic_group"
-      keyDeserializer: "org.apache.kafka.common.serialization.LongDeserializer"
-      valueDeserializer: "pro.ambulando.slack.notifier.kafka.MessageDeserializer"
-    - name: "transaction_topic"
-      type: "TRANSACTION"
-      brokers:
-        - "localhost:9092"
-      group: "transaction_topic_group"
       keyDeserializer: "org.apache.kafka.common.serialization.LongDeserializer"
       valueDeserializer: "pro.ambulando.slack.notifier.kafka.MessageDeserializer"

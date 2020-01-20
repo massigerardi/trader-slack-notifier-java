@@ -27,19 +27,13 @@ public class MessageSender {
   @Autowired
   @With private NotifierService notifier;
 
-  public SlackMessageReply sendExecutionMessage(Message<Execution> message) throws NotificationException {
-    SlackPreparedMessage slackMessage = prepareExecutionMessage(message);
-    return sendMessage(message, slackMessage);
-  }
-
-  public SlackMessageReply sendTransactionMessage(Message<Transaction> message) throws NotificationException {
-    SlackPreparedMessage slackMessage = prepareTransactionMessage(message);
-    return sendMessage(message, slackMessage);
-  }
-
-  public SlackMessageReply sendTextMessage(Message<Text> message) throws NotificationException {
-    SlackPreparedMessage slackMessage = prepareTextMessage(message);
-    return sendMessage(message, slackMessage);
+  public <T extends MessageBody> SlackMessageReply sendMessage(Message<T> message) throws NotificationException {
+    switch (message.getBody().getClass().getSimpleName()) {
+      case "Execution": return sendMessage(message, prepareExecutionMessage((Message<Execution>) message));
+      case "Text": return sendMessage(message, prepareTextMessage((Message<Text>) message));
+      case "Transaction": return sendMessage(message, prepareTransactionMessage((Message<Transaction>) message));
+      default: throw new NotificationException("type_not_supported", null);
+    }
   }
 
   public <T extends MessageBody> SlackMessageReply sendMessage(Message<T> message, SlackPreparedMessage preparedMessage) throws NotificationException {

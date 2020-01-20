@@ -39,7 +39,7 @@ public class ProducerRunner {
   public MessageTextProducer createTextProducer() {
     Properties props = new Properties();
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
-    props.put(ProducerConfig.CLIENT_ID_CONFIG, "textClient");
+    props.put(ProducerConfig.CLIENT_ID_CONFIG, "textProducer");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
     return factory.messageTextProducer(props) ;
@@ -57,7 +57,7 @@ public class ProducerRunner {
   public MessageExecutionProducer createExecutionProducer() {
     Properties props = new Properties();
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
-    props.put(ProducerConfig.CLIENT_ID_CONFIG, KafkaConstants.CLIENT_ID);
+    props.put(ProducerConfig.CLIENT_ID_CONFIG, "executionProducer");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
     return factory.messageExecutionProducer(props) ;
@@ -83,9 +83,8 @@ public class ProducerRunner {
         .withId(getId())
         .withToken(TOKEN)
         .withChannel("C9VS20DNH")
-        .withType("Text")
         .withSender("test");
-    producer.produce(message, "text_topic");
+    producer.produce(message, "messages");
 
   }
 
@@ -108,11 +107,8 @@ public class ProducerRunner {
         .withBody(Execution.builder().strategy("strategy "+count+" "+new Date()).build())
         .withId(getId())
         .withToken(TOKEN)
-        .withChannel("C9VS20DNH")
-        .withReceiver("U0XJ3Q1T3")
-        .withType("Execution")
-        .withSender("test");
-    producer.produce(message, "execution_topic");
+        .withReceiver("U0XJ3Q1T3");
+    producer.produce(message, "messages");
   }
 
   private Runnable transactionRunner = () -> {
@@ -135,10 +131,8 @@ public class ProducerRunner {
         .withBody(Transaction.builder().command("command "+count+" "+new Date()).build())
         .withToken(TOKEN)
         .withChannel("C9VS20DNH")
-        .withReceiver("U0XJ3Q1T3")
-        .withType("Transaction")
-        .withSender("test");
-    producer.produce(message, "transaction_topic");
+        .withReceiver("U0XJ3Q1T3");
+    producer.produce(message, "messages");
   }
 
 
