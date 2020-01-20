@@ -3,11 +3,9 @@ package pro.ambulando.slack.stream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
+import pro.ambulando.slack.notifier.kafka.MessageSerializer;
 import pro.ambulando.slack.notifier.model.Execution;
 import pro.ambulando.slack.notifier.model.Message;
-import pro.ambulando.slack.notifier.model.MessageExecutionSerializer;
-import pro.ambulando.slack.notifier.model.MessageTextSerializer;
-import pro.ambulando.slack.notifier.model.MessageTransactionSerializer;
 import pro.ambulando.slack.notifier.model.Text;
 import pro.ambulando.slack.notifier.model.Transaction;
 import pro.ambulando.slack.notifier.producer.MessageExecutionProducer;
@@ -27,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class ProducerRunner {
 
-  private static final String TOKEN = "<token>";
+  private static final String TOKEN = "xoxb-252026281427-kIAH1Smt12MOgZ1yjZwJqizt";
   private ProducerFactory factory = new ProducerFactory();
 
   AtomicInteger idCounter = new AtomicInteger();
@@ -43,7 +41,7 @@ public class ProducerRunner {
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
     props.put(ProducerConfig.CLIENT_ID_CONFIG, "textClient");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageTextSerializer.class.getName());
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
     return factory.messageTextProducer(props) ;
   }
 
@@ -52,7 +50,7 @@ public class ProducerRunner {
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
     props.put(ProducerConfig.CLIENT_ID_CONFIG, "transactionProducer");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageTransactionSerializer.class.getName());
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
     return factory.messageTransactionProducer(props) ;
   }
 
@@ -61,7 +59,7 @@ public class ProducerRunner {
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
     props.put(ProducerConfig.CLIENT_ID_CONFIG, KafkaConstants.CLIENT_ID);
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageExecutionSerializer.class.getName());
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MessageSerializer.class.getName());
     return factory.messageExecutionProducer(props) ;
   }
 

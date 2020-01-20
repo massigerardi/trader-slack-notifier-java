@@ -3,7 +3,7 @@ package pro.ambulando.slack.stream;
 public class KafkaConstants {
 
   public static String KAFKA_BROKERS = "localhost:9092";
-  public static Integer MESSAGE_COUNT = 5;
+  public static Integer MESSAGE_COUNT = 2;
   public static String CLIENT_ID = "client1";
   public static String TEXT_TOPIC_NAME = "text_demo";
   public static String TOPIC_NAME = "demo";

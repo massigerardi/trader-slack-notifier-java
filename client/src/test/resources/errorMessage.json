@@ -1,0 +1,12 @@
+{
+  "token": "my_token",
+  "sender": "sender",
+  "channel": "channel",
+  "receiver": "receiver",
+  "ephemeral": true,
+  "type": "Unknown",
+  "message": {
+    "command": "sell",
+    "status": "Completed"
+  }
+}

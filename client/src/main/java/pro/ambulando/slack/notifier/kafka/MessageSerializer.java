@@ -1,12 +1,15 @@
-package pro.ambulando.slack.notifier.model;
+package pro.ambulando.slack.notifier.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
+import pro.ambulando.slack.notifier.model.Message;
+import pro.ambulando.slack.notifier.model.MessageBody;
 
 @Slf4j
-public abstract class MessageSerializer<T extends MessageBody> implements Serializer<Message<T>> {
+public class MessageSerializer<T extends MessageBody> implements Serializer<Message<T>> {
 
   private ObjectMapper mapper = new ObjectMapper();
 

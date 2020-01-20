@@ -50,4 +50,6 @@ public class Transaction implements MessageBody {
 
   private String command;
 
+  private String status;
+
 }
