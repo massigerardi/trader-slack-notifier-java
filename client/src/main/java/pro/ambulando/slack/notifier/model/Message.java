@@ -22,6 +22,10 @@ public class Message<T extends MessageBody> {
   @JsonProperty("message")
   @With private T body;
 
+  @With private String id;
+
+  @With private String comment;
+
   @With private String token;
 
   @With private String sender;
@@ -30,6 +34,7 @@ public class Message<T extends MessageBody> {
 
   @With private String receiver;
 
-  @With private Boolean ephemeral;
+  @With private boolean ephemeral;
 
+  @With private String type;
 }

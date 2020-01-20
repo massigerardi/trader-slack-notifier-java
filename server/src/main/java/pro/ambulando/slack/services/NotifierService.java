@@ -31,7 +31,7 @@ public class NotifierService {
     if (StringUtils.isBlank(message.getReceiver()) && StringUtils.isBlank(message.getChannel())) {
       throw new MessageException("no_receiver_or_channel_specified");
     }
-    if (message.getEphemeral()) {
+    if (message.isEphemeral()) {
       return sendEphemeralMessage(message, preparedMessage);
     }
     if (StringUtils.isBlank(message.getReceiver())) {

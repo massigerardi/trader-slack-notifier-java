@@ -1,6 +1,10 @@
 package pro.ambulando.slack.services;
 
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage;
+import com.ullink.slack.simpleslackapi.blocks.Context;
+import com.ullink.slack.simpleslackapi.blocks.Section;
+import com.ullink.slack.simpleslackapi.blocks.compositions.Markdown;
+import com.ullink.slack.simpleslackapi.blocks.compositions.PlainText;
 import com.ullink.slack.simpleslackapi.replies.SlackMessageReply;
 import lombok.AllArgsConstructor;
 import lombok.With;
@@ -52,22 +56,24 @@ public class MessageSender {
   private SlackPreparedMessage prepareTransactionMessage(Message<Transaction> message) {
     Transaction body = message.getBody();
     SlackPreparedMessage preparedMessage = SlackPreparedMessage.builder()
-        .message(body.getCommand())
+        .block(Section.builder().field(PlainText.builder().text(message.getBody().getCommand()).build()).build())
+        .block(Context.builder().element(Markdown.builder().text(message.getId()+" sent by Java").build()).build())
         .build();
     return preparedMessage;
   }
 
   private SlackPreparedMessage prepareTextMessage(Message<Text> message) {
     SlackPreparedMessage preparedMessage = SlackPreparedMessage.builder()
-        .message(message.getBody().getText())
+        .block(Section.builder().field(PlainText.builder().text(message.getBody().getText()).build()).build())
+        .block(Context.builder().element(Markdown.builder().text(message.getId()+" sent by Java").build()).build())
         .build();
     return preparedMessage;
   }
 
   private SlackPreparedMessage prepareExecutionMessage(Message<Execution> message) {
-    Execution body = message.getBody();
     SlackPreparedMessage preparedMessage = SlackPreparedMessage.builder()
-        .message(body.getStrategy())
+        .block(Section.builder().field(PlainText.builder().text(message.getBody().getStrategy()).build()).build())
+        .block(Context.builder().element(Markdown.builder().text(message.getId()+" sent by Java").build()).build())
         .build();
     return preparedMessage;
   }

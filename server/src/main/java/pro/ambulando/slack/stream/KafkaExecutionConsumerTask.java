@@ -35,7 +35,7 @@ public class KafkaExecutionConsumerTask implements KafkaConsumerTask {
         } catch (NotificationException e) {
           e.printStackTrace();
         }
-        log.info("MG Sent message {} - {}", count, record.value().getBody());
+        log.info("MG Sent message {} - {} - {}", count, record.value().getId(), record.value().getBody());
       });
 
       if (success.get()) {

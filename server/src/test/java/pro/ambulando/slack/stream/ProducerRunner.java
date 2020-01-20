@@ -15,17 +15,27 @@ import pro.ambulando.slack.notifier.producer.MessageTextProducer;
 import pro.ambulando.slack.notifier.producer.MessageTransactionProducer;
 import pro.ambulando.slack.notifier.producer.ProducerFactory;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class ProducerRunner {
 
   private ProducerFactory factory = new ProducerFactory();
+
+  AtomicInteger idCounter = new AtomicInteger();
+  private String getId() {
+    String date = String.valueOf(Calendar.getInstance().get(Calendar.DATE));
+    String hour = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
+    String minute = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
+    return "MESSAGE_"+date+hour+minute+"_"+idCounter.getAndIncrement();
+  }
 
   public MessageTextProducer createTextProducer() {
     Properties props = new Properties();
@@ -71,7 +81,10 @@ public class ProducerRunner {
   public void sendTextMessage(MessageTextProducer producer, int count) {
     Message message = new Message()
         .withBody(Text.builder().text("message "+count+" "+new Date()).build())
+        .withId(getId())
+        .withToken("xoxb-252026281427-rgXJt774B2Yp3LDqzJbXokYk")
         .withChannel("C9VS20DNH")
+        .withType("Text")
         .withSender("test");
     producer.produce(message, "text_topic");
 
@@ -94,7 +107,11 @@ public class ProducerRunner {
   public void sendExecutionMessage(MessageExecutionProducer producer, int count) {
     Message message = new Message()
         .withBody(Execution.builder().strategy("strategy "+count+" "+new Date()).build())
+        .withId(getId())
+        .withToken("xoxb-252026281427-rgXJt774B2Yp3LDqzJbXokYk")
+        .withChannel("C9VS20DNH")
         .withReceiver("U0XJ3Q1T3")
+        .withType("Execution")
         .withSender("test");
     producer.produce(message, "execution_topic");
   }
@@ -115,8 +132,12 @@ public class ProducerRunner {
 
   public void sendTransactionMessage(MessageTransactionProducer producer, int count) {
     Message<Transaction> message = new Message<Transaction>()
-        .withBody(Transaction.builder().command("> > > > > > command "+count+" "+new Date()).build())
+        .withId(getId())
+        .withBody(Transaction.builder().command("command "+count+" "+new Date()).build())
+        .withToken("xoxb-252026281427-rgXJt774B2Yp3LDqzJbXokYk")
+        .withChannel("C9VS20DNH")
         .withReceiver("U0XJ3Q1T3")
+        .withType("Transaction")
         .withSender("test");
     producer.produce(message, "transaction_topic");
   }
@@ -127,7 +148,7 @@ public class ProducerRunner {
     executor.execute(textRunner);
     executor.execute(executionRunner);
     executor.execute(transactionRunner);
-    Thread.sleep(600000);
+    Thread.sleep(60000);
   }
 
 
