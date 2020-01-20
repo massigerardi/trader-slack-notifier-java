@@ -34,10 +34,10 @@ public class NotifierService {
     if (message.isEphemeral()) {
       return sendEphemeralMessage(message, preparedMessage);
     }
-    if (StringUtils.isBlank(message.getReceiver())) {
-      return sendMessageToChannel(message, preparedMessage);
+    if (StringUtils.isBlank(message.getChannel())) {
+      return sendMessageToUser(message, preparedMessage);
     }
-    return sendMessageToUser(message, preparedMessage);
+    return sendMessageToChannel(message, preparedMessage);
   }
 
   private <T extends MessageBody> SlackMessageReply sendEphemeralMessage(Message<T> message, SlackPreparedMessage preparedMessage) throws IOException, SlackMessageException {
