@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class ProducerRunner {
 
+  private static final String TOKEN = "<token>";
   private ProducerFactory factory = new ProducerFactory();
 
   AtomicInteger idCounter = new AtomicInteger();
@@ -82,7 +83,7 @@ public class ProducerRunner {
     Message message = new Message()
         .withBody(Text.builder().text("message "+count+" "+new Date()).build())
         .withId(getId())
-        .withToken("xoxb-252026281427-rgXJt774B2Yp3LDqzJbXokYk")
+        .withToken(TOKEN)
         .withChannel("C9VS20DNH")
         .withType("Text")
         .withSender("test");
@@ -108,7 +109,7 @@ public class ProducerRunner {
     Message message = new Message()
         .withBody(Execution.builder().strategy("strategy "+count+" "+new Date()).build())
         .withId(getId())
-        .withToken("xoxb-252026281427-rgXJt774B2Yp3LDqzJbXokYk")
+        .withToken(TOKEN)
         .withChannel("C9VS20DNH")
         .withReceiver("U0XJ3Q1T3")
         .withType("Execution")
@@ -134,7 +135,7 @@ public class ProducerRunner {
     Message<Transaction> message = new Message<Transaction>()
         .withId(getId())
         .withBody(Transaction.builder().command("command "+count+" "+new Date()).build())
-        .withToken("xoxb-252026281427-rgXJt774B2Yp3LDqzJbXokYk")
+        .withToken(TOKEN)
         .withChannel("C9VS20DNH")
         .withReceiver("U0XJ3Q1T3")
         .withType("Transaction")
