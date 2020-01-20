@@ -1,0 +1,35 @@
+logging:
+  level:
+    org.springframework: INFO
+
+server:
+  port: 8080
+  contextPath: "/notification"
+
+spring:
+  liquibase:
+    enabled: false
+
+kafka:
+  topics:
+    - name: "text_topic"
+      type: "TEXT"
+      brokers:
+        - "localhost:9092"
+      group: "text_topic_group"
+      keyDeserializer: "org.apache.kafka.common.serialization.LongDeserializer"
+      valueDeserializer: "pro.ambulando.slack.notifier.model.MessageTextDeserializer"
+    - name: "execution_topic"
+      type: "EXECUTION"
+      brokers:
+        - "localhost:9092"
+      group: "execution_topic_group"
+      keyDeserializer: "org.apache.kafka.common.serialization.LongDeserializer"
+      valueDeserializer: "pro.ambulando.slack.notifier.model.MessageExecutionDeserializer"
+    - name: "transaction_topic"
+      type: "TRANSACTION"
+      brokers:
+        - "localhost:9092"
+      group: "transaction_topic_group"
+      keyDeserializer: "org.apache.kafka.common.serialization.LongDeserializer"
+      valueDeserializer: "pro.ambulando.slack.notifier.model.MessageTransactionDeserializer"
