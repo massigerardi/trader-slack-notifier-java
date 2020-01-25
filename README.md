@@ -9,6 +9,7 @@ REST API
 POST http://localhost:8080/message
 request:
 
+```
 {
     "token": "<token>",
     "sender": "<user_id>",
@@ -18,3 +19,4 @@ request:
     "type": "<Transaction|Execution|Text>",
     "message": <Transaction|Execution|Text JSON>
 }
+```
